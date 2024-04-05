@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :city, presence: true, length: { maximum: 100 }
   validates :birthdate, presence: true
   validates :gender, inclusion: { in: %w(Male Female) }, allow_blank: true
-  validates :sexual_orientation, inclusion: { in: %w(Straight Gay Lesbian Bisexual) }, allow_blank: true
+  validates :sexual_orientation, inclusion: { in: %w(Male Female) }, allow_blank: true
   validates :gender_interest, inclusion: { in: %w(Male Female) }, allow_blank: true
   validates :school, length: { maximum: 100 }
   validates :bio, length: { maximum: 1000 }
