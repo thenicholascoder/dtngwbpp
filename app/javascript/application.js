@@ -27,32 +27,12 @@ document.addEventListener("turbo:load", function () {
       prevSlide = currSlide;
 
       if (splide.index === 0) {
-        // Get the element by its id
-        var dangerBtn = document.getElementById("dangerBtn");
-
-        // Check if the element exists
-        if (dangerBtn !== null) {
-          // Simulate a click event on the element
-          dangerBtn.click();
-        } else {
-          console.log("Element with id 'dangerBtn' not found.");
-        }
         setTimeout(function () {
           splide.go(">");
         }, 300);
       }
 
       if (splide.index === splide.length - 1) {
-        // Get the element by its id
-        var successBtn = document.getElementById("successBtn");
-
-        // Check if the element exists
-        if (successBtn !== null) {
-          // Simulate a click event on the element
-          successBtn.click();
-        } else {
-          console.log("Element with id 'successBtn' not found.");
-        }
         setTimeout(() => {
           splide.go(splide.length - 2);
         }, 300);
