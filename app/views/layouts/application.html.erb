@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   <%= javascript_importmap_tags %>
   <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
-  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %></head>
-
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= favicon_link_tag 'favicon.ico' %>
+  </head>
 <body>
   <div class="container">
     <%= render partial: 'shared/flash_messages' %>
