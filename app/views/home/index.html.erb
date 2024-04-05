@@ -1,0 +1,72 @@
+<%= javascript_include_tag('splide.js') %>
+<div class="container">
+  <div class="row">
+    <div class="home">
+      <% if current_user  %>
+        <h1>Find your match</h1>
+        <div class="splide d-flex justify-content-center">
+          <div class="splide__track">
+            <ul class="splide__list">
+              <% if @filtered_user %>
+                <li class="splide__slide"></li>
+                <li class="splide__slide">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <h4>Photo</h4>
+                      <%= image_tag(UserPhoto.where(user_id: @filtered_user.id).first.photo.link, alt: "Description of the image", class: "img-thumbnail") %>
+                    </div>
+                    <div class="col-md-8">
+                      <h4>Gallery</h4>
+                      <div class="row">
+                        <% UserPhoto.where(user_id: @filtered_user.id).each do |user_photo| %>
+                          <div class="col-md-2">
+                            <%= image_tag(user_photo.photo.link, alt: "Description of the image", class: "img-thumbnail") %>
+                          </div>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-md-6">
+                      <h4>First Name:</h4>
+                      <p><%= @filtered_user.first_name %></p>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>Last Name:</h4>
+                      <p><%= @filtered_user.last_name %></p>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <h4>Location:</h4>
+                      <p><%= @filtered_user.country %>, <%= @filtered_user.state %>, <%= @filtered_user.city %></p>
+                    </div>
+                    <div class="col-md-6">
+                      <h4>Bio:</h4>
+                      <p><%= @filtered_user.bio %></p>
+                    </div>
+                  </div>
+                  <%= button_to "Like", likes_path(liked_id: @filtered_user.id), method: :create, class: 'btn btn-success btn-sm', id:"successBtn" %>
+                  <%= button_to "Disike", dislikes_path(disliked_id: @filtered_user.id), method: :create, class: 'btn btn-danger btn-sm', id:"dangerBtn" %>
+                </li>
+                <li class="splide__slide"></li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <% end %>      
+    </div>
+      <% if current_user  %>
+        <% unless @filtered_user %>
+          <br><br><br><br>
+          <div class="text-center"><i>No new users to like or dislike</i></div>
+          <br><br><br><br>
+        <% end %>
+      <% else %>
+        <br><br><br><br>
+          <div class="text-center"><i>Sign up and Log in to find your match</i></div>
+        <br><br><br><br>
+      <% end %>
+  </div>
+</div>

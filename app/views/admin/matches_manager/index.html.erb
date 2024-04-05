@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Admin", admin_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Matches Manager", admin_matches_manager_index_path %></li>
+        </ol>
+      </nav>
+      <h1>Matches Manager</h1>
+      <% if @users.length == 0 %>
+        <br><br><i>The User database is empty.</i>
+      <% else %>
+      <table class="table table-striped table_matches_manager-desktop">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th scope="col">Primary Photo</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">No. of matches</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+            <tr>
+              <td><%= index+1 %></td>
+              <td><%= image_tag user.user_photos.first.photo.link, height: "100", width: "100", class: "img-thumbnail" %></td>
+              <td><%= user.first_name %></td>
+              <td><%= user.last_name %></td>
+              <td><%= Like.where(liker_id: Like.where(liker_id: user.id).pluck(:liked_id), liked_id: user.id).count %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <table class="table table-striped table_matches_manager-sp">
+        <thead class="thead-dark">
+          <tr>
+            <th>User</th>
+            <th scope="col">Primary Photo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each_with_index do |user, index| %>
+            <tr>
+              <td>
+                <br>
+                <b>#</b>&nbsp;<%= index+1 %><br>
+                <b>First name:</b>&nbsp;<%= user.first_name %><br>
+                <b>Last name:</b>&nbsp;<%= user.last_name %><br>
+                <b>No of matches:</b>&nbsp;<%= Like.where(liker_id: Like.where(liker_id: user.id).pluck(:liked_id), liked_id: user.id).count %><br><br>
+              </td>
+              <td>
+                <br>
+                <%= image_tag user.user_photos.first.photo.link, height: "100", width: "100", class: "img-thumbnail" %>
+                <br><br>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <%= will_paginate @users %>
+      <% end %>
+    </div>
+  </div>
+</div>

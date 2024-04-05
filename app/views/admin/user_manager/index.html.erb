@@ -1,0 +1,78 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-md-offset-1">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+          <li class="breadcrumb-item"><%= link_to "Admin", admin_index_path %></li>
+          <li class="breadcrumb-item"><%= link_to "User Manager", admin_user_manager_index_path %></li>
+        </ol>
+      </nav>
+      <h1>User Manager</h1>
+      <% if @users.length == 0 %>
+        <br><br><i>The User database is empty.</i>
+      <% else %>
+      <div class="table_user_manager-destkop table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th style="text-align: center;">Primary Photo</th>
+              <th style="text-align: center;">First Name</th>
+              <th style="text-align: center;">Last Name</th>
+              <th style="text-align: center;">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each_with_index do |user, index| %>
+              <tr>
+                <td><%= index+1 %> </td>
+                <td style="text-align: center; justify-self: center; align-items: center;"><%= image_tag user.user_photos.first.photo.link, height: "100", width: "100", class: "img-thumbnail" %></td>
+                <td style="text-align: center;"><%= user.first_name %></td>
+                <td style="text-align: center;"><%= user.last_name %></td>
+                <td style="text-align: center;">
+                  <%= link_to 'View', admin_user_manager_user_path(user), class: 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Edit', edit_admin_user_manager_user_path(user), class: 'btn btn-secondary btn-sm' %>
+                  <%= link_to "Delete", user, data: { "turbo-method": :delete, turbo_confirm: "You sure?"}, class: "btn btn-danger btn-sm" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <div class="table_user_manager-sp">
+        <table class="table table-striped">
+          <thead class="thead-dark">
+            <tr>
+              <th>User</th>
+              <th scope="col">Primary Photo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @users.each_with_index do |user, index| %>
+              <tr>
+                <td>
+                  <br>
+                  <b>#</b>&nbsp;<%= index+1 %><br>
+                  <b>First name:</b>&nbsp;<%= user.first_name %><br>
+                  <b>Last name:</b>&nbsp;<%= user.last_name %><br>
+                  <b>Actions:</b><br>
+                  <%= link_to 'View', admin_user_manager_user_path(user), class: 'btn btn-primary btn-sm' %>
+                  <%= link_to 'Edit', edit_admin_user_manager_user_path(user), class: 'btn btn-secondary btn-sm' %>
+                  <%= link_to "Delete", user, data: { "turbo-method": :delete, turbo_confirm: "You sure?"}, class: "btn btn-danger btn-sm" %>
+                  <br><br>
+                </td>
+                <td>
+                  <br>
+                  &nbsp;<%= image_tag user.user_photos.first.photo.link, height: "100", width: "100", class: "img-thumbnail" %><br>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= will_paginate @users %>
+      <% end %>
+    </div>
+  </div>
+</div>

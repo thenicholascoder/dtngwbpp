@@ -1,0 +1,43 @@
+<div class="container">
+  <h1>Message</h1>
+  <div class="row messages_row">
+    <div class="col-md-6 col-md-offset-3 messenger" id="scrollableContent">
+      <% @messages.each do |message| %>
+        <% if message.sender_id == current_user.id %>
+          <div class="message message--right">
+            <div class="message_mine"><%= message.body %></div>
+            <small>
+              <i><%= message.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+              <br>
+              <% if message.seen %>
+                <span class="seen"><i>Seen</i></span>
+              <% end %>
+            </small>
+          </div>
+        <% else %>
+          <div class="message">
+            <div class="message_to_me">
+              <b><%= message.sender.first_name %>&nbsp;<%= message.sender.last_name %>:</b> <%= message.body %>
+            </div>
+            <small>
+              <i><%= message.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+              <br>
+              <% if message.seen %>
+                <span class="seen"><i>Seen</i></span>
+              <% end %>
+            </small>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-6 col-md-offset-3 messenger_textarea_container">
+      <%= form_with(model: @message, url: messages_path(user_id: params[:user_id])) do |form| %>
+        <%= form.hidden_field :recipient_id, value: params[:user_id] %>
+        <div class="messenger_textarea_frame">
+          <%= form.text_area :body, class:"messenger_textarea form-control" %>
+          <%= form.submit "Send", class: "message_submit" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

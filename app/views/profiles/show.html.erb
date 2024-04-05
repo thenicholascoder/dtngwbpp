@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+    <h1>Profile</h1>
+
+      <strong>First Name:</strong> <%= @user.first_name %><br>
+      <strong>Last Name:</strong> <%= @user.last_name %><br>
+      <strong>Mobile:</strong> <%= @user.mobile %><br>
+      <strong>Email:</strong> <%= @user.email %><br>
+      <strong>Birthdate:</strong> <%= @user.birthdate %><br>
+      <strong>Gender:</strong> <%= @user.gender %><br>
+      <strong>Sexual Orientation:</strong> <%= @user.sexual_orientation %><br>
+      <strong>Gender Interest:</strong> <%= @user.gender_interest %><br>
+      <strong>Country:</strong> <%= @user.country %><br>
+      <strong>State:</strong> <%= @user.state %><br>
+      <strong>City:</strong> <%= @user.city %><br>
+      <strong>School:</strong> <%= @user.school %><br>
+      <strong>Bio:</strong> <%= @user.bio %><br>
+      <strong>Is Admin:</strong> <%= @user.is_admin %><br>
+    <div>
+      <h2>Photo Gallery</h2>
+      <% if @user_photos.count == 0 %>
+        <i>This user does not have any photos yet.</i>
+      <% else %>
+        <% @user_photos.each do |user_photo| %>
+          <%= image_tag(user_photo.photo.link, alt: "Description of the image", height: "100", width: "100") %>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-12 text-center">
+      <br><br>
+      <%= link_to 'Edit Profile', edit_profile_path(@user.id), class: "btn btn-primary btn-sm" %>
+      <%= link_to "Back", root_path, class: "btn btn-primary btn-sm", data: { turbo_confirm: "You sure?"}%>
+    </div>
+  </div>
+</div>

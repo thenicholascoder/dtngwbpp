@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><%= link_to "Home", root_path %></li>
+        <li class="breadcrumb-item"><%= link_to "Admin", admin_index_path %></li>
+      </ol>
+    </nav>
+    <h1>Admin</h1>
+    <ul>
+      <li><%= link_to "User Manager", admin_user_manager_index_path %></li>
+      <li><%= link_to "Matches Manager", admin_matches_manager_index_path %></li>
+    </ul>
+  </div>
+</div>

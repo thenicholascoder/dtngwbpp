@@ -1,0 +1,93 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h1>Edit Profile</h1>
+      <%= form_with(model: @user, url: profile_path(@user), method: :patch, local: true) do |form| %>
+        <div>
+          <%= form.label :first_name, "First name" %>
+          <%= form.text_field :first_name, class: 'form-control', required: true, value: @user.first_name %>
+        </div>
+        <div>
+          <%= form.label :last_name, "Last name" %>
+          <%= form.text_field :last_name, class: 'form-control', required: true, value: @user.last_name %>
+        </div>
+        <div>
+          <%= form.label :mobile, "Mobile" %>
+          <%= form.text_field :mobile, class: 'form-control', required: true, value: @user.mobile %>
+        </div>
+        <div>
+          <%= form.label :email, "Email" %>
+          <%= form.text_field :email, class: 'form-control', required: true, value: @user.email %>
+        </div>
+        <div>
+          <%= form.label :birthdate, "Birthday date" %>
+          <%= form.date_field :birthdate, class: 'form-control', required: true, value: @user.birthdate %>
+        </div>
+        <div>
+          <%= form.label :gender, class: "form-label" %>
+          <%= form.select :gender, options_for_select(['Male', 'Female'], @user.gender), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }  %>
+        </div>
+        <div>
+          <%= form.label :sexual_orientation, class: "form-label" %>
+          <%= form.select :sexual_orientation, options_for_select(['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Other'], @user.sexual_orientation), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }%>
+        </div>
+        <div>
+          <%= form.label :gender_interest, class: "form-label" %>
+          <%= form.select :gender_interest, options_for_select(['Male', 'Female'], @user.gender_interest), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' } %>
+        </div>
+        <div>
+          <%= form.label :country, "Country" %>
+          <%= form.text_field :country, class: 'form-control', required: true, value: @user.country %>
+        </div>
+        <div>
+          <%= form.label :state, "State" %>
+          <%= form.text_field :state, class: 'form-control', required: true, value: @user.state %>
+        </div>
+        <div>
+          <%= form.label :city, "City" %>
+          <%= form.text_field :city, class: 'form-control', required: true, value: @user.city %>
+        </div>
+        <div>
+          <%= form.label :school, "School" %>
+          <%= form.text_field :school, class: 'form-control', required: true, value: @user.school %>
+        </div>
+        <div>
+          <%= form.label :bio %>
+          <%= form.text_area :bio, class: 'form-control', value: @user.bio %>
+        </div>
+        <div class="form-check">
+          <%= form.label :is_admin %>
+          <%= form.check_box :is_admin, class: 'form-check-input', value: @user.is_admin %>
+        </div>
+        <div>
+          <%= form.label :password %>
+          <%= form.password_field :password, class: 'form-control' %>
+        </div>
+        <div>
+          <%= form.label :password_confirmation, "Confirmation" %>
+          <%= form.password_field :password_confirmation, class: 'form-control' %>
+        </div>
+
+        <h2 class="text-center">Edit Photo Gallery</h2>
+        <%= form.label 'Current Photos:' %><br>
+        <% if @user_photos.count == 0 %>
+          <i>This user does not have any photos yet.</i>
+        <% else %>
+          <% @user_photos.each  do |user_photo| %>
+            <div class="photo-container">
+              <%= image_tag user_photo.photo.link, alt: user_photo.photo.link, height: 100 %>
+              <%= link_to "x", user_photos_delete_path(id: user_photo.id, user_id: @user.id), method: :delete, data: { confirm: "Are you sure you want to delete this Photo?" }, class: 'btn btn-danger btn-xs' %>
+            </div>
+          <% end %>
+        <% end %><br><br>
+        <%= form.label 'Upload Photos:' %><br>
+        <%= form.file_field :images, multiple: true %><br>
+
+        <div class="col-md-12 text-center">
+          <%= form.submit "Update profile", class: "btn btn-primary btn-sm" %>
+          <%= link_to "Cancel", retrieve_last_page_or_default(default_path: root_path), class: "btn btn-primary btn-sm", data: { turbo_confirm: "You sure?"}%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container">
+  <h1>Message</h1>
+
+  <div class="row">
+    <% if @matches.length == 0 %>
+      <br><br><br><br>
+        <div class="text-center"><i>You have no matches yet.</i></div>
+      <br><br><br><br>
+    <% end %>
+    <div class="col-md-6 col-md-offset-3">
+      <% if @matches.length > 0 %>
+        <% @matches.each do |match| %>
+          <%= link_to show_user_message_path(user_id: match.liker.id) do %>
+            <div class="messages_container">
+              <div class="messages_container-left">
+                <%= image_tag(UserPhoto.where(user_id: match.liker.id).first.photo.link, alt: "Description of the image", height: "50", width: "50", class: "rounded-circle") %>
+                <b><%= match.liker.first_name %>&nbsp;<%= match.liker.last_name %>:</b>
+              </div>
+              <div class="messages_container-right">
+                <% if Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last==nil %>
+                  <i>Say hello to your new match!</i><br>
+                  <i><%= match.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+                <% else %>
+                  <% if Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.sender_id == current_user.id %>
+                    You: <%= truncate(Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.body, length: 20) %><br>
+                    <i><%= Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+                  <% else %>
+                    <% if Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.seen %>
+                      <%= truncate(Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.body, length: 20) %><br>
+                      <i><%= Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+                    <% else %>
+                      <b><%= truncate(Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.body, length: 20) %></b><br>
+                      <i><%= Message.where(sender_id: [match.liker.id, current_user.id]).where(recipient_id: [match.liker.id, current_user.id]).order(created_at: :asc).last.created_at.strftime("%B %e, %Y, %I:%M %p") %></i>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
