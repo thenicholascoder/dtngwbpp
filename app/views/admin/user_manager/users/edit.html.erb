@@ -29,7 +29,7 @@
         </div>
         <div>
           <%= form.label :sexual_orientation, class: "form-label" %>
-          <%= form.select :sexual_orientation, options_for_select(['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Other'], @user.sexual_orientation), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }%>
+          <%= form.select :sexual_orientation, options_for_select(['Male', 'Female'], @user.sexual_orientation), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }%>
         </div>
         <div>
           <%= form.label :gender_interest, class: "form-label" %>

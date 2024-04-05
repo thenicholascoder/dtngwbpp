@@ -52,7 +52,7 @@
           <div class="col-md-6">
             <div class="mb-3 form-group">
               <%= f.label :sexual_orientation, class: "form-label" %>
-              <%= f.select :sexual_orientation, options_for_select(['Straight', 'Gay', 'Lesbian', 'Bisexual', 'Other'], f.object.sexual_orientation || 'Straight'), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }%>
+              <%= f.select :sexual_orientation, options_for_select(['Male', 'Female'], f.object.sexual_orientation || 'Male'), { include_blank: false }, class: 'form-control', aria: { label: 'Default select example' }%>
             </div>
           </div>
           <div class="col-md-6">
