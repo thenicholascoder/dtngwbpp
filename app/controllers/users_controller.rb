@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  include LoggedInRestrictions
   include SessionsHelper
 
   def new
