@@ -5,7 +5,7 @@ class Admin::UserManager::UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @user_photos = UserPhoto.where(user_id: params[:id])
-    @matches = Like.where(liker_id: Like.where(liker_id: current_user.id).pluck(:liked_id), liked_id: current_user.id).paginate(page: params[:page]).per_page(10)
+    @matches = Like.where(liker_id: Like.where(liker_id: params[:id]).pluck(:liked_id), liked_id: params[:id]).paginate(page: params[:page]).per_page(10)
   end
 
   def edit
