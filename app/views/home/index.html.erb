@@ -12,38 +12,37 @@
                 <li class="splide__slide">
                   <div class="row">
                     <div class="col-md-4">
-                      <h4>Photo</h4>
+                      <b>Photo</b>
                       <%= image_tag(UserPhoto.where(user_id: @filtered_user.id).first.photo.link, alt: "Description of the image", class: "img-thumbnail") %>
                     </div>
                     <div class="col-md-8">
-                      <h4>Gallery</h4>
+                      <b>Gallery</b>
                       <div class="row">
                         <% UserPhoto.where(user_id: @filtered_user.id).each do |user_photo| %>
-                          <div class="col-md-2">
-                            <%= image_tag(user_photo.photo.link, alt: "Description of the image", class: "img-thumbnail") %>
-                          </div>
+
+                            <%= image_tag(user_photo.photo.link, alt: "Description of the image", height: "100") %>
                         <% end %>
                       </div>
                     </div>
                   </div>
                   <div class="row mt-3">
                     <div class="col-md-6">
-                      <h4>First Name:</h4>
-                      <p><%= @filtered_user.first_name %></p>
+                      <b>First Name:</b>
+                      <%= @filtered_user.first_name %>
                     </div>
                     <div class="col-md-6">
-                      <h4>Last Name:</h4>
-                      <p><%= @filtered_user.last_name %></p>
+                      <b>Last Name:</b>
+                      <%= @filtered_user.last_name %>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <h4>Location:</h4>
-                      <p><%= @filtered_user.country %>, <%= @filtered_user.state %>, <%= @filtered_user.city %></p>
+                      <b>Location:</b>
+                      <%= @filtered_user.country %>, <%= @filtered_user.state %>, <%= @filtered_user.city %>
                     </div>
                     <div class="col-md-6">
-                      <h4>Bio:</h4>
-                      <p><%= @filtered_user.bio %></p>
+                      <b>Bio:</b>
+                      <%= @filtered_user.bio %>
                     </div>
                   </div>
                   <%= button_to "Like", likes_path(liked_id: @filtered_user.id), method: :create, class: 'btn btn-success btn-sm', id:"successBtn" %>
